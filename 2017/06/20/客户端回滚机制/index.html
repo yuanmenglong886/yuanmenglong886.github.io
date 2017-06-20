@@ -9,12 +9,13 @@
   <title>客户端回滚机制 | 袁梦龙的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="业务场景：1某一次客户端的上线，可能由于场景的原因或者其他原因导致  用户在某一种业务场景下，App大批量的崩溃，以至于影响用户的正常使用，为了解决情况，客户端继续引入一种解决方案——客户端回滚机制 回滚机制：说白了就是在一部分用户使用线上版本大批量的崩溃，且无法使用热修复来快速解决这些崩溃，影响这些用户正常使用时，我们需要让这批用户切回到上一个版本，不影响他们目前的正常使用。当我们的对于线上bu">
+<meta name="keywords" content="移动端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="客户端回滚机制">
-<meta property="og:url" content="http://yuanmenglong.cn/2017/05/22/客户端回滚机制/index.html">
+<meta property="og:url" content="http://yuanmenglong.cn/2017/06/20/客户端回滚机制/index.html">
 <meta property="og:site_name" content="袁梦龙的博客">
 <meta property="og:description" content="业务场景：1某一次客户端的上线，可能由于场景的原因或者其他原因导致  用户在某一种业务场景下，App大批量的崩溃，以至于影响用户的正常使用，为了解决情况，客户端继续引入一种解决方案——客户端回滚机制 回滚机制：说白了就是在一部分用户使用线上版本大批量的崩溃，且无法使用热修复来快速解决这些崩溃，影响这些用户正常使用时，我们需要让这批用户切回到上一个版本，不影响他们目前的正常使用。当我们的对于线上bu">
-<meta property="og:updated_time" content="2017-06-20T08:38:01.000Z">
+<meta property="og:updated_time" content="2017-06-20T13:14:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="客户端回滚机制">
 <meta name="twitter:description" content="业务场景：1某一次客户端的上线，可能由于场景的原因或者其他原因导致  用户在某一种业务场景下，App大批量的崩溃，以至于影响用户的正常使用，为了解决情况，客户端继续引入一种解决方案——客户端回滚机制 回滚机制：说白了就是在一部分用户使用线上版本大批量的崩溃，且无法使用热修复来快速解决这些崩溃，影响这些用户正常使用时，我们需要让这批用户切回到上一个版本，不影响他们目前的正常使用。当我们的对于线上bu">
@@ -217,8 +218,8 @@ var _hmt = _hmt || [];
                 <!-- 显示阅读和评论数 -->
         
         
-        <a href="/2017/05/22/客户端回滚机制/" class="archive-article-date">
-  	<time datetime="2017-05-22T12:12:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-22</time>
+        <a href="/2017/06/20/客户端回滚机制/" class="archive-article-date">
+  	<time datetime="2017-06-20T13:10:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-20</time>
 </a>
         
       </header>
@@ -232,7 +233,7 @@ var _hmt = _hmt || [];
 2. 上线后RD根据崩溃类型，来进行后台的设置，对某一种类型的崩溃需要版本的回滚
 3. 服务器端收到这种类型的崩溃时，给客户端返回新的下载链接，去下载需要回滚的应用包
 4. RD在bug 修复后，进行服务器端的设置，来返回无bug的应用。  
-</code></pre><h3 id="回滚流程："><a href="#回滚流程：" class="headerlink" title="回滚流程："></a>回滚流程：</h3><pre><code>http://yoursite.com/yuanmenglong886.github.io/source/assets/img/ClientRollbackMechanism.png
+</code></pre><h3 id="回滚流程："><a href="#回滚流程：" class="headerlink" title="回滚流程："></a>回滚流程：</h3><pre><code>![logo](客户端回滚机制/ClientRollbackMechanism.png) 
 </code></pre><h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>   回滚只是一种机制，在线上迫不得已的情况下使用，目的只是为了不影响某些机型，某些场景下用户的体验和使用，来提高用户的体验     </p>
 
       
@@ -273,6 +274,17 @@ var _hmt = _hmt || [];
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">移动端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -323,7 +335,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yuanmenglong.cn/2017/05/22/客户端回滚机制/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yuanmenglong.cn/2017/06/20/客户端回滚机制/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -337,18 +349,9 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2017/05/22/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          安装hexo过程
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/05/22/hexo-安装使用详解/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hexo 安装使用详解</div>
+    <a href="/2017/06/20/分享/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分享</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -361,7 +364,7 @@ var _hmt = _hmt || [];
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="客户端回滚机制" data-title="客户端回滚机制" data-url="http://yuanmenglong.cn/2017/05/22/客户端回滚机制/"></div>
+	<div class="ds-thread" data-thread-key="客户端回滚机制" data-title="客户端回滚机制" data-url="http://yuanmenglong.cn/2017/06/20/客户端回滚机制/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -474,6 +477,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">移动端</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

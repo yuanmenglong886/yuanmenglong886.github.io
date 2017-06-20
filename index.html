@@ -204,6 +204,75 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-客户端回滚机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/20/客户端回滚机制/">客户端回滚机制</a>
+    </h1>
+  
+
+                <!-- 显示阅读和评论数 -->
+        
+        
+        <a href="/2017/06/20/客户端回滚机制/" class="archive-article-date">
+  	<time datetime="2017-06-20T13:10:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="业务场景："><a href="#业务场景：" class="headerlink" title="业务场景："></a>业务场景：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">某一次客户端的上线，可能由于场景的原因或者其他原因导致  用户在某一种业务场景下，App大批量的崩溃，以至于影响用户的正常使用，为了解决情况，客户端继续引入一种解决方案——客户端回滚机制</div></pre></td></tr></table></figure>
+<h3 id="回滚机制："><a href="#回滚机制：" class="headerlink" title="回滚机制："></a>回滚机制：</h3><pre><code class="bash">说白了就是在一部分用户使用线上版本大批量的崩溃，且无法使用热修复来快速解决这些崩溃，影响这些用户正常使用时，我们需要让这批用户切回到上一个版本，不影响他们目前的正常使用。当我们的对于线上bug 修复后，又让这批用户切回到我们的最新版本。
+</code></pre>
+<h3 id="回滚原理："><a href="#回滚原理：" class="headerlink" title="回滚原理："></a>回滚原理：</h3><pre><code>1. 客户端将崩溃的日志记录下来，并发送给服务器
+2. 上线后RD根据崩溃类型，来进行后台的设置，对某一种类型的崩溃需要版本的回滚
+3. 服务器端收到这种类型的崩溃时，给客户端返回新的下载链接，去下载需要回滚的应用包
+4. RD在bug 修复后，进行服务器端的设置，来返回无bug的应用。  
+</code></pre><h3 id="回滚流程："><a href="#回滚流程：" class="headerlink" title="回滚流程："></a>回滚流程：</h3><pre><code>![logo](客户端回滚机制/ClientRollbackMechanism.png) 
+</code></pre><h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>   回滚只是一种机制，在线上迫不得已的情况下使用，目的只是为了不影响某些机型，某些场景下用户的体验和使用，来提高用户的体验     </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">移动端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/20/客户端回滚机制/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-分享" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -298,64 +367,6 @@ var _hmt = _hmt || [];
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/05/22/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-客户端回滚机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/22/客户端回滚机制/">客户端回滚机制</a>
-    </h1>
-  
-
-                <!-- 显示阅读和评论数 -->
-        
-        
-        <a href="/2017/05/22/客户端回滚机制/" class="archive-article-date">
-  	<time datetime="2017-05-22T12:12:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="业务场景："><a href="#业务场景：" class="headerlink" title="业务场景："></a>业务场景：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">某一次客户端的上线，可能由于场景的原因或者其他原因导致  用户在某一种业务场景下，App大批量的崩溃，以至于影响用户的正常使用，为了解决情况，客户端继续引入一种解决方案——客户端回滚机制</div></pre></td></tr></table></figure>
-<h3 id="回滚机制："><a href="#回滚机制：" class="headerlink" title="回滚机制："></a>回滚机制：</h3><pre><code class="bash">说白了就是在一部分用户使用线上版本大批量的崩溃，且无法使用热修复来快速解决这些崩溃，影响这些用户正常使用时，我们需要让这批用户切回到上一个版本，不影响他们目前的正常使用。当我们的对于线上bug 修复后，又让这批用户切回到我们的最新版本。
-</code></pre>
-<h3 id="回滚原理："><a href="#回滚原理：" class="headerlink" title="回滚原理："></a>回滚原理：</h3><pre><code>1. 客户端将崩溃的日志记录下来，并发送给服务器
-2. 上线后RD根据崩溃类型，来进行后台的设置，对某一种类型的崩溃需要版本的回滚
-3. 服务器端收到这种类型的崩溃时，给客户端返回新的下载链接，去下载需要回滚的应用包
-4. RD在bug 修复后，进行服务器端的设置，来返回无bug的应用。  
-</code></pre><h3 id="回滚流程："><a href="#回滚流程：" class="headerlink" title="回滚流程："></a>回滚流程：</h3><pre><code>http://yoursite.com/yuanmenglong886.github.io/source/assets/img/ClientRollbackMechanism.png
-</code></pre><h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>   回滚只是一种机制，在线上迫不得已的情况下使用，目的只是为了不影响某些机型，某些场景下用户的体验和使用，来提高用户的体验     </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/22/客户端回滚机制/">展开全文 >></a>
         </p>
       
 
@@ -509,6 +520,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">移动端</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
