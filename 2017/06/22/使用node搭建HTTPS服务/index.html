@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yuanmenglong.cn">
-  <title>安装hexo过程 | 袁梦龙的博客</title>
+  <title>使用node搭建HTTPS服务 | 袁梦龙的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="业务场景：   某一次客户端的上线，可能由于场景的原因或者其他原因导致  用户在某一种业务场景下，App大批量的崩溃，以至于影响用户的正常使用，为了解决情况，客户端继续引入一种解决方案——客户端回滚机制 回滚机制：   说白了就是在一部分用户使用线上版本大批量的崩溃，且无法使用热修复来快速解决这些崩溃，影响这些用户正常使用时，我们需要让这批用户切回到上一个版本，不影响他们目前的正常使用。当我们的对">
-<meta name="keywords" content="移动端">
+  <meta name="description" content="HTTPS 理论1.对HTTPS 原理   前面已经讲过，不在赘述: HTTPS原文链接 2. 数字证书   是一种用于电脑的身份识别机制。由数字证书颁发机构（CA）对使用私钥创建的签名请求文件做的签名（盖章），表示CA结构对证书持有者的认可。 证书优点：   1    使用数字证书能够提高用户的可信度   2    数字证书中的公钥，能够与服务端的私钥配对使用，实现数据传输过程中的加密和解密">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安装hexo过程">
-<meta property="og:url" content="http://yuanmenglong.cn/2017/06/20/客户端回滚机制/index.html">
+<meta property="og:title" content="使用node搭建HTTPS服务">
+<meta property="og:url" content="http://yuanmenglong.cn/2017/06/22/使用node搭建HTTPS服务/index.html">
 <meta property="og:site_name" content="袁梦龙的博客">
-<meta property="og:description" content="业务场景：   某一次客户端的上线，可能由于场景的原因或者其他原因导致  用户在某一种业务场景下，App大批量的崩溃，以至于影响用户的正常使用，为了解决情况，客户端继续引入一种解决方案——客户端回滚机制 回滚机制：   说白了就是在一部分用户使用线上版本大批量的崩溃，且无法使用热修复来快速解决这些崩溃，影响这些用户正常使用时，我们需要让这批用户切回到上一个版本，不影响他们目前的正常使用。当我们的对">
-<meta property="og:image" content="http://yuanmenglong.cn/2017/06/20/客户端回滚机制/ClientRollbackMechanism.png">
-<meta property="og:updated_time" content="2017-06-21T02:52:19.000Z">
+<meta property="og:description" content="HTTPS 理论1.对HTTPS 原理   前面已经讲过，不在赘述: HTTPS原文链接 2. 数字证书   是一种用于电脑的身份识别机制。由数字证书颁发机构（CA）对使用私钥创建的签名请求文件做的签名（盖章），表示CA结构对证书持有者的认可。 证书优点：   1    使用数字证书能够提高用户的可信度   2    数字证书中的公钥，能够与服务端的私钥配对使用，实现数据传输过程中的加密和解密">
+<meta property="og:image" content="http://www.barretlee.com/blogimgs/2015/10/20151001_b347f684.jpg">
+<meta property="og:image" content="http://yuanmenglong.cn/2017/06/22/使用node搭建HTTPS服务/server.jpg">
+<meta property="og:updated_time" content="2017-06-22T05:54:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安装hexo过程">
-<meta name="twitter:description" content="业务场景：   某一次客户端的上线，可能由于场景的原因或者其他原因导致  用户在某一种业务场景下，App大批量的崩溃，以至于影响用户的正常使用，为了解决情况，客户端继续引入一种解决方案——客户端回滚机制 回滚机制：   说白了就是在一部分用户使用线上版本大批量的崩溃，且无法使用热修复来快速解决这些崩溃，影响这些用户正常使用时，我们需要让这批用户切回到上一个版本，不影响他们目前的正常使用。当我们的对">
-<meta name="twitter:image" content="http://yuanmenglong.cn/2017/06/20/客户端回滚机制/ClientRollbackMechanism.png">
+<meta name="twitter:title" content="使用node搭建HTTPS服务">
+<meta name="twitter:description" content="HTTPS 理论1.对HTTPS 原理   前面已经讲过，不在赘述: HTTPS原文链接 2. 数字证书   是一种用于电脑的身份识别机制。由数字证书颁发机构（CA）对使用私钥创建的签名请求文件做的签名（盖章），表示CA结构对证书持有者的认可。 证书优点：   1    使用数字证书能够提高用户的可信度   2    数字证书中的公钥，能够与服务端的私钥配对使用，实现数据传输过程中的加密和解密">
+<meta name="twitter:image" content="http://www.barretlee.com/blogimgs/2015/10/20151001_b347f684.jpg">
   
     <link rel="alternative" href="/atom.xml" title="袁梦龙的博客" type="application/atom+xml">
   
@@ -206,36 +206,58 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-客户端回滚机制" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-使用node搭建HTTPS服务" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      安装hexo过程
+      使用node搭建HTTPS服务
     </h1>
   
 
                 <!-- 显示阅读和评论数 -->
         
         
-        <a href="/2017/06/20/客户端回滚机制/" class="archive-article-date">
-  	<time datetime="2017-06-20T13:10:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-20</time>
+        <a href="/2017/06/22/使用node搭建HTTPS服务/" class="archive-article-date">
+  	<time datetime="2017-06-22T02:30:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="业务场景："><a href="#业务场景：" class="headerlink" title="业务场景："></a>业务场景：</h3><p>   某一次客户端的上线，可能由于场景的原因或者其他原因导致  用户在某一种业务场景下，App大批量的崩溃，以至于影响用户的正常使用，为了解决情况，客户端继续引入一种解决方案——客户端回滚机制</p>
-<h3 id="回滚机制："><a href="#回滚机制：" class="headerlink" title="回滚机制："></a>回滚机制：</h3><p>   说白了就是在一部分用户使用线上版本大批量的崩溃，且无法使用热修复来快速解决这些崩溃，影响这些用户正常使用时，我们需要让这批用户切回到上一个版本，不影响他们目前的正常使用。当我们的对于线上bug 修复后，又让这批用户切回到我们的最新版本。</p>
-<h3 id="回滚原理："><a href="#回滚原理：" class="headerlink" title="回滚原理："></a>回滚原理：</h3><pre><code>1. 客户端将崩溃的日志记录下来，并发送给服务器
-2. 上线后RD根据崩溃类型，来进行后台的设置，对某一种类型的崩溃需要版本的回滚
-3. 服务器端收到这种类型的崩溃时，给客户端返回新的下载链接，去下载需要回滚的应用包
-4. RD在bug 修复后，进行服务器端的设置，来返回无bug的应用。
-</code></pre><h3 id="回滚流程："><a href="#回滚流程：" class="headerlink" title="回滚流程："></a>回滚流程：</h3><p>   <img src="/2017/06/20/客户端回滚机制/ClientRollbackMechanism.png" alt="logo">          </p>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>   回滚只是一种机制，在线上迫不得已的情况下使用，目的只是为了不影响某些机型，某些场景下用户的体验和使用，来提高用户的体验     </p>
+        <h2 id="HTTPS-理论"><a href="#HTTPS-理论" class="headerlink" title="HTTPS 理论"></a>HTTPS 理论</h2><h3 id="1-对HTTPS-原理"><a href="#1-对HTTPS-原理" class="headerlink" title="1.对HTTPS 原理"></a>1.对HTTPS 原理</h3><p>   <img src="http://www.barretlee.com/blogimgs/2015/10/20151001_b347f684.jpg" alt="logo"><br>前面已经讲过，不在赘述: <a href="http://blog.csdn.net/yuanmengong886/article/details/54618351" target="_blank" rel="external">HTTPS原文链接</a></p>
+<h3 id="2-数字证书"><a href="#2-数字证书" class="headerlink" title="2. 数字证书"></a>2. 数字证书</h3><p>   是一种用于电脑的身份识别机制。由数字证书颁发机构（CA）对使用私钥创建的签名请求文件做的签名（盖章），表示CA结构对证书持有者的认可。</p>
+<h4 id="证书优点："><a href="#证书优点：" class="headerlink" title="证书优点："></a>证书优点：</h4><p>   1    使用数字证书能够提高用户的可信度<br>   2    数字证书中的公钥，能够与服务端的私钥配对使用，实现数据传输过程中的加密和解密<br>   3    在证认使用者身份期间，使用者的敏感个人数据并不会被传输至证书持有者的网络系统上   </p>
+<h4 id="X-509-证书"><a href="#X-509-证书" class="headerlink" title="X.509 证书"></a>X.509 证书</h4><p>   X.509证书包含三个文件：key，csr，crt。<br>    •    key是服务器上的私钥文件，用于对发送给客户端数据的加密，以及对从客户端接收到数据的解密<br>    •    csr是证书签名请求文件，用于提交给证书颁发机构（CA）对证书签名<br>    •    crt是由证书颁发机构（CA）签名后的证书，或者是开发者自签名的证书，包含证书持有人的信息，持有人的公钥，以及签署者的签名等信息<br>备注：在密码学中，X.509是一个标准，规范了公开秘钥认证、证书吊销列表、授权凭证、凭证路径验证算法等。</p>
+<h3 id="3-CA证书证书流程："><a href="#3-CA证书证书流程：" class="headerlink" title="3.CA证书证书流程："></a>3.CA证书证书流程：</h3><p>   <img src="/2017/06/22/使用node搭建HTTPS服务/server.jpg" alt="logo"> </p>
+<h1 id="HTTPS-实践"><a href="#HTTPS-实践" class="headerlink" title="HTTPS 实践"></a>HTTPS 实践</h1><h2 id="单项认证"><a href="#单项认证" class="headerlink" title="单项认证"></a>单项认证</h2><h3 id="1-生成密钥、证书"><a href="#1-生成密钥、证书" class="headerlink" title="1. 生成密钥、证书"></a>1. 生成密钥、证书</h3><h4 id="第一步：为服务器端准备公钥、私钥"><a href="#第一步：为服务器端准备公钥、私钥" class="headerlink" title="第一步：为服务器端准备公钥、私钥"></a>第一步：为服务器端准备公钥、私钥</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 生成服务器端私钥</span></div><div class="line">openssl genrsa -out server.key 1024</div><div class="line"><span class="comment"># 生成服务器端公钥</span></div><div class="line">openssl rsa -in server.key -pubout -out server.pem</div></pre></td></tr></table></figure>
+<h4 id="第二步-生成-CSR-证书请求文件"><a href="#第二步-生成-CSR-证书请求文件" class="headerlink" title="第二步:生成 CSR(证书请求文件)"></a>第二步:生成 CSR(证书请求文件)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 生成 CSR（Certificate Secure Request）</span></div><div class="line">openssl req -new -key server.key -out server.csr</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  keys  openssl req -new -key ca.key -out ca.csr</div><div class="line">You are about to be asked to enter information that will be incorporated</div><div class="line">into your certificate request.</div><div class="line">What you are about to enter is what is called a Distinguished Name or a DN.</div><div class="line">There are quite a few fields but you can leave some blank</div><div class="line">For some fields there will be a default value,</div><div class="line">If you enter <span class="string">'.'</span>, the field will be left blank.</div><div class="line">-----</div><div class="line">Country Name (2 letter code) [AU]:CN</div><div class="line">State or Province Name (full name) [Some-State]:Zhejiang</div><div class="line">Locality Name (eg, city) []:Hangzhou</div><div class="line">Organization Name (eg, company) [Internet Widgits Pty Ltd]:My CA</div><div class="line">Organizational Unit Name (eg, section) []:</div><div class="line">Common Name (e.g. server FQDN or YOUR name) []:localhost</div><div class="line">Email Address []:</div></pre></td></tr></table></figure>
+<p>   注意：<br>        1.上面的Common name可以是域名（IP），或者名字<br>        当是生成服务器端的证书请求文件： commmon name要和自己的网站域名一致<br>        当是生成客户端的证书请求文件时,写成自己的名字或者域名都行<br>        2.这里的 Organization Name (eg, company) [Internet Widgits Pty Ltd]: 后面生成客户端和服务器端证书的时候也需要填写，不要写成一样的！！！可以随意写如：My CA, My Server, My Client</p>
+<h4 id="第三步：生成CA证书"><a href="#第三步：生成CA证书" class="headerlink" title="第三步：生成CA证书"></a>第三步：生成CA证书</h4><h5 id="1-使用自己的私钥作为CA进行自签名"><a href="#1-使用自己的私钥作为CA进行自签名" class="headerlink" title="1).使用自己的私钥作为CA进行自签名"></a>1).使用自己的私钥作为CA进行自签名</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># server.key  作为CA的私钥进行CA签名</span></div><div class="line">openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</div></pre></td></tr></table></figure>
+<h5 id="2-使用不受操作系统提高的CA机构信任的CA机构进行CA签名"><a href="#2-使用不受操作系统提高的CA机构信任的CA机构进行CA签名" class="headerlink" title="2).使用不受操作系统提高的CA机构信任的CA机构进行CA签名"></a>2).使用不受操作系统提高的CA机构信任的CA机构进行CA签名</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">   1. 生成CA证书</div><div class="line"><span class="comment"># 生成 CA 私钥</span></div><div class="line">openssl genrsa -out ca.key 1024</div><div class="line"><span class="comment"># X.509 Certificate Signing Request (CSR) Management.</span></div><div class="line">openssl req -new -key ca.key -out ca.csr</div><div class="line"><span class="comment"># X.509 Certificate Data Management.       CA机构向上一级CA机构签名提供证书请求文件.csr和 上一级机构的私钥 .key文件生成 签名证书.crt</span></div><div class="line">openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt</div><div class="line">   2. CA机构  使用自己的 上级机构生成的证书 ca.crt和 自己的私钥 ca.key对证书请求文件进行签名</div><div class="line"><span class="comment"># 向自己的 CA 机构申请证书，签名过程需要 CA 的证书和私钥参与，最终颁发一个带有 CA 签名的证书</span></div><div class="line">openssl x509 -req -CA ca.crt -CAkey ca.key -CAcreateserial -in server.csr -out server.crt</div></pre></td></tr></table></figure>
+<p> 此时，我们的keys文件夹目录如下</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── https-server.js</div><div class="line">└── keys</div><div class="line">    ├── ca.crt         </div><div class="line">    ├── ca.csr</div><div class="line">    ├── ca.key</div><div class="line">    ├── ca.pem</div><div class="line">    ├── ca.srl</div><div class="line">    ├── server.crt</div><div class="line">    ├── server.csr</div><div class="line">    ├── server.key</div><div class="line">    └── server.pem</div></pre></td></tr></table></figure>
+<h5 id="3-将证书签名文件-server-csr-交给CA机构进行CA签名，步奏和上面第二种方案一样，唯一区别是ca-crt和ca-key是正式的CA机构的"><a href="#3-将证书签名文件-server-csr-交给CA机构进行CA签名，步奏和上面第二种方案一样，唯一区别是ca-crt和ca-key是正式的CA机构的" class="headerlink" title="3). 将证书签名文件 server.csr 交给CA机构进行CA签名，步奏和上面第二种方案一样，唯一区别是ca.crt和ca.key是正式的CA机构的"></a>3). 将证书签名文件 server.csr 交给CA机构进行CA签名，步奏和上面第二种方案一样，唯一区别是ca.crt和ca.key是正式的CA机构的</h5><p>HTTPS单项认证服务器端测试代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// file http-server.js</div><div class="line">var https = require(<span class="string">'https'</span>);</div><div class="line">var fs = require(<span class="string">'fs'</span>);</div><div class="line">var options = &#123;</div><div class="line">  key: fs.readFileSync(<span class="string">'./keys/server.key'</span>),</div><div class="line">  cert: fs.readFileSync(<span class="string">'./keys/server.crt'</span>)</div><div class="line">&#125;;</div><div class="line">https.createServer(options, <span class="keyword">function</span>(req, res) &#123;</div><div class="line">  res.writeHead(200);</div><div class="line">  res.end(<span class="string">'hello world'</span>);</div><div class="line">&#125;).listen(8000);</div></pre></td></tr></table></figure></p>
+<h3 id="HTTPS单线认证缺点："><a href="#HTTPS单线认证缺点：" class="headerlink" title="HTTPS单线认证缺点："></a>HTTPS单线认证缺点：</h3><p>   容易遭受第三方（ 中间人）攻击例如：</p>
+<ol>
+<li>使用代理作为中间人进行抓包截取数据</li>
+<li>curl -k  <a href="https://localhost:8000" target="_blank" rel="external">https://localhost:8000</a>  可以获取服务器的数据<h2 id="双向认证"><a href="#双向认证" class="headerlink" title="双向认证"></a>双向认证</h2>单项认证只有客户端对服务器端的认证，没有服务器端对客户端的认证<br>双向认证不仅需要服务器对客户端身份的认证，也需要客户端对服务器端身份的认证<h3 id="1-生成密钥、证书-1"><a href="#1-生成密钥、证书-1" class="headerlink" title="1. 生成密钥、证书"></a>1. 生成密钥、证书</h3><h4 id="第一步：为服务器端和客户端准备公钥、私钥"><a href="#第一步：为服务器端和客户端准备公钥、私钥" class="headerlink" title="第一步：为服务器端和客户端准备公钥、私钥"></a>第一步：为服务器端和客户端准备公钥、私钥</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 生成服务器端私钥</span></div><div class="line">openssl genrsa -out server.key 1024</div><div class="line"><span class="comment"># 生成服务器端公钥</span></div><div class="line">openssl rsa -in server.key -pubout -out server.pem</div><div class="line"><span class="comment"># 生成客户端私钥</span></div><div class="line">openssl genrsa -out client.key 1024</div><div class="line"><span class="comment"># 生成客户端公钥</span></div><div class="line">openssl rsa -in client.key -pubout -out client.pem</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="第二步-生成-CSR-证书请求文件-1"><a href="#第二步-生成-CSR-证书请求文件-1" class="headerlink" title="第二步:生成 CSR(证书请求文件)"></a>第二步:生成 CSR(证书请求文件)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 服务器生成 CSR（Certificate Secure Request）</span></div><div class="line">openssl req -new -key server.key -out server.csr</div><div class="line"><span class="comment"># client 端</span></div><div class="line">openssl req -new -key client.key -out client.csr</div></pre></td></tr></table></figure>
+<h4 id="第三步：生成CA证书-1"><a href="#第三步：生成CA证书-1" class="headerlink" title="第三步：生成CA证书"></a>第三步：生成CA证书</h4><p> 利于前面已生成的CA 机构的 私钥和签名证书对  服务端和客户端的 证书请求文件进行签名<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 向自己的 CA 机构申请证书，签名过程需要 CA 的证书和私钥参与，最终颁发一个带有 CA 签名的证书</span></div><div class="line">openssl x509 -req -CA ca.crt -CAkey ca.key -CAcreateserial -in server.csr -out server.crt</div><div class="line"><span class="comment"># client 端到 CA 签名</span></div><div class="line">openssl x509 -req -CA ca.crt -CAkey ca.key -CAcreateserial -in client.csr -out client.crt</div></pre></td></tr></table></figure></p>
+<p>此时，我们的 keys 文件夹下已经有如下内容了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">├── https-client.js</div><div class="line">├── https-server.js</div><div class="line">└── keys</div><div class="line">    ├── ca.crt</div><div class="line">    ├── ca.csr</div><div class="line">    ├── ca.key</div><div class="line">    ├── ca.pem</div><div class="line">    ├── ca.srl</div><div class="line">    ├── client.crt</div><div class="line">    ├── client.csr</div><div class="line">    ├── client.key</div><div class="line">    ├── client.pem</div><div class="line">    ├── server.crt</div><div class="line">    ├── server.csr</div><div class="line">    ├── server.key</div><div class="line">    └── server.pem</div></pre></td></tr></table></figure>
+<p> HTTPS双项认证服务器端测试代码和单项认证一样,客户端代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">// file http-client.js</div><div class="line">var https = require(<span class="string">'https'</span>);</div><div class="line">var fs = require(<span class="string">'fs'</span>);</div><div class="line">var options = &#123;</div><div class="line">  hostname: <span class="string">"localhost"</span>,</div><div class="line">  port: 8000,</div><div class="line">  path: <span class="string">'/'</span>,</div><div class="line">  methed: <span class="string">'GET'</span>,</div><div class="line">  key: fs.readFileSync(<span class="string">'./keys/client.key'</span>),</div><div class="line">  cert: fs.readFileSync(<span class="string">'./keys/client.crt'</span>),</div><div class="line">  ca: [fs.readFileSync(<span class="string">'./keys/ca.crt'</span>)]</div><div class="line">&#125;;</div><div class="line">options.agent = new https.Agent(options);</div><div class="line">var req = https.request(options, <span class="keyword">function</span>(res) &#123;</div><div class="line">  res.setEncoding(<span class="string">'utf-8'</span>);</div><div class="line">  res.on(<span class="string">'data'</span>, <span class="keyword">function</span>(d) &#123;</div><div class="line">    console.log(d);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div><div class="line">req.end();</div><div class="line">req.on(<span class="string">'error'</span>, <span class="keyword">function</span>(e) &#123;</div><div class="line">  console.log(e);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>  先打开服务器 node http-server.js，然后执行</p>
+<pre><code class="bash">node https-client.js
+hello world
+</code></pre>
+<p>   遇见的问题保存： ‘DEPTH_ZERO_SELF_SIGNED_CERT’<br>   由于HTTPS服务器会对客户端的证书进行验证，而客户端的证书是自签的证书，不是CA机构办法的，固然操作系统的根证书验证通不过<br>   需要将rejectUnauthorized:false 告诉服务器不要进行根证书列表的验证<br>   同时将ca: [fs.readFileSync(‘./keys/ca.crt’)],  以保证数据双向传输的安全</p>
 
       
 
@@ -275,17 +297,6 @@ var _hmt = _hmt || [];
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">移动端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -336,7 +347,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yuanmenglong.cn/2017/06/20/客户端回滚机制/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yuanmenglong.cn/2017/06/22/使用node搭建HTTPS服务/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -350,18 +361,9 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2017/06/22/使用node搭建HTTPS服务/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          使用node搭建HTTPS服务
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/06/20/分享/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">分享</div>
+    <a href="/2017/06/20/客户端回滚机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">安装hexo过程</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -374,7 +376,7 @@ var _hmt = _hmt || [];
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="客户端回滚机制" data-title="安装hexo过程" data-url="http://yuanmenglong.cn/2017/06/20/客户端回滚机制/"></div>
+	<div class="ds-thread" data-thread-key="使用node搭建HTTPS服务" data-title="使用node搭建HTTPS服务" data-url="http://yuanmenglong.cn/2017/06/22/使用node搭建HTTPS服务/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
