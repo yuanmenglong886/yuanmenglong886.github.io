@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="HTTPS-理论"><a href="#HTTPS-理论" class="headerlink" title="HTTPS 理论"></a>HTTPS 理论</h2><h3 id="1-对HTTPS-原理"><a href="#1-对HTTPS-原理" class="headerlink" title="1.对HTTPS 原理"></a>1.对HTTPS 原理</h3><p>   <img src="http://www.barretlee.com/blogimgs/2015/10/20151001_b347f684.jpg" alt="logo"><br>前面已经讲过，不在赘述: <a href="http://blog.csdn.net/yuanmengong886/article/details/54618351" target="_blank" rel="external">HTTPS原文链接</a></p>
+        <h2 id="HTTPS-理论"><a href="#HTTPS-理论" class="headerlink" title="HTTPS 理论"></a>HTTPS 理论</h2><h3 id="1-对HTTPS-原理"><a href="#1-对HTTPS-原理" class="headerlink" title="1.对HTTPS 原理"></a>1.对HTTPS 原理</h3><p>   <img src="/2017/06/22/使用node搭建HTTPS服务/HTTPS.png" alt="logo"><br>前面已经讲过，不在赘述: <a href="http://blog.csdn.net/yuanmengong886/article/details/54618351" target="_blank" rel="external">HTTPS原文链接</a></p>
 <h3 id="2-数字证书"><a href="#2-数字证书" class="headerlink" title="2. 数字证书"></a>2. 数字证书</h3><p>   是一种用于电脑的身份识别机制。由数字证书颁发机构（CA）对使用私钥创建的签名请求文件做的签名（盖章），表示CA结构对证书持有者的认可。</p>
 <h4 id="证书优点："><a href="#证书优点：" class="headerlink" title="证书优点："></a>证书优点：</h4><p>   1    使用数字证书能够提高用户的可信度<br>   2    数字证书中的公钥，能够与服务端的私钥配对使用，实现数据传输过程中的加密和解密<br>   3    在证认使用者身份期间，使用者的敏感个人数据并不会被传输至证书持有者的网络系统上   </p>
 <h4 id="X-509-证书"><a href="#X-509-证书" class="headerlink" title="X.509 证书"></a>X.509 证书</h4><p>   X.509证书包含三个文件：key，csr，crt。<br>    •    key是服务器上的私钥文件，用于对发送给客户端数据的加密，以及对从客户端接收到数据的解密<br>    •    csr是证书签名请求文件，用于提交给证书颁发机构（CA）对证书签名<br>    •    crt是由证书颁发机构（CA）签名后的证书，或者是开发者自签名的证书，包含证书持有人的信息，持有人的公钥，以及签署者的签名等信息<br>备注：在密码学中，X.509是一个标准，规范了公开秘钥认证、证书吊销列表、授权凭证、凭证路径验证算法等。</p>
